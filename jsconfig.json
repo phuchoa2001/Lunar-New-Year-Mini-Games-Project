@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+      "@/components/*": ["components/*"]
+      // Add any other path aliases you need here
+    },
+    // Add other TypeScript compiler options as needed
+  }
+  // You can add other TypeScript settings here
+}
