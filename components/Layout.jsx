@@ -1,4 +1,4 @@
-import React, { useEffect, useRef , useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Tabs from './Tabs';
 import Styles from '@/styles/components/layout.module.scss';
 import Header from './Header';
@@ -16,17 +16,17 @@ function RootLayout(props) {
 	}, []);
 
 	return (
-		<div className='container'>
-			<div className={Styles.root}>
-				<Header />
-				<div className={Styles.children} style={{ paddingBottom: tabHeight > 0 ? tabHeight : DEFAULT_MARGIN }}>
-					{props.children}
-				</div>
-				<div ref={tabRef}>
-					<Tabs />
+			<div className='container'>
+				<div className={Styles.root}>
+					<Header />
+					<div className={Styles.children} style={{ paddingBottom: tabHeight > 0 ? tabHeight : DEFAULT_MARGIN }}>
+						{props.children}
+					</div>
+					<div ref={tabRef}>
+						<Tabs />
+					</div>
 				</div>
 			</div>
-		</div>
 	);
 }
 
