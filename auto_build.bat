@@ -1,0 +1,16 @@
+@echo off
+:loop
+
+echo Waiting for 15 minutes before pulling and building again...
+timeout /t 900
+
+echo Pulling latest code from the master branch...
+git pull origin main -f
+
+echo Building the project...
+call build.bat || echo Build failed, continuing with the script...
+
+echo Reloading the application with PM2...
+call pm2reload.bat
+
+goto loop
