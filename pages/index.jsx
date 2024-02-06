@@ -31,7 +31,7 @@ export default function Home() {
 						Mỗi bước tiến là một chiến thắng, mỗi mục tiêu đều quý giá. Hãy cam kết với chính mình và khám phá sức mạnh của sự đoàn kết.
 						Ghi lại mục tiêu của bạn ngay hôm nay và cùng chúng tôi xây dựng một năm tràn đầy thành công!
 					</Typography.Text>
-					<a href='https://www.facebook.com/phuchoa00/' className={classNames(styles.support , "cursor-pointer")}>
+					<a href='https://www.facebook.com/phuchoa00/' className={classNames(styles.support, "cursor-pointer")}>
 						<Space align="start" style={{ width: "100%" }} className='mt-1'>
 							<div>Liên hệ chúng tôi nếu cần hỗ trợ :</div>
 							<div>
