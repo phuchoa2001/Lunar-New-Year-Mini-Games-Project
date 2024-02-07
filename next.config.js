@@ -16,7 +16,8 @@ module.exports = withTM({
     "baseUrl": ".",
     "paths": {
       "@/styles/*": ["styles/*"],
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/utils/*": ["utils/*"]
     }
   },
   content: [

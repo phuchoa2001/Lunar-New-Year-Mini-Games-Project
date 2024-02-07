@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { SearchBar, Button, Picker } from 'antd-mobile';
 import { FilterOutline } from 'antd-mobile-icons';
 import debounce from 'lodash/debounce';
+import { GAME_OPTION } from 'constants/Game';
 
 function GoalFilter() {
   const [visible, setVisible] = useState(false)
@@ -11,11 +12,11 @@ function GoalFilter() {
   const basicColumns = [
     [
       { label: 'Tất cả', value: "all" },
-      { label: 'Avatar 3x', value: 'Avatar 3x' },
-      { label: 'Avatar HD', value: 'Avatar HD' },
+      ...GAME_OPTION
     ],
   ]
 
+  console.log("visible" , visible);
   const handleSearch = (searchValue) => {
     console.log('Searching for:', searchValue);
   };

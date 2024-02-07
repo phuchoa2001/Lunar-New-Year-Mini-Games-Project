@@ -33,7 +33,7 @@ export default () => {
 				onFinish={onFinish}
 				footer={
 					<Button block type='submit' color='primary' size='large'>
-						Thêm mới
+						Sửa
 					</Button>
 				}
 				initialValues={formData}
