@@ -7,10 +7,18 @@ import { FacebookFilled } from '@ant-design/icons';
 import { Skeleton } from 'antd-mobile'
 import ImageWithSkeleton from '@/components/ImageWithSkeleton';
 import classNames from 'classnames';
+import FloatButton from '@/components/FloatButton';
+import { AddSquareOutline } from 'antd-mobile-icons';
+import { useRouter } from 'next/router'
 
 const { Title } = Typography;
 
 export default function Home() {
+	const router = useRouter();
+
+  const redirectTo = (value) => {
+    router.push(value);
+	}
 
 	return (
 		<div className={styles.container}>
@@ -41,6 +49,7 @@ export default function Home() {
 					</a>
 				</div>
 			</div>
+			<FloatButton icon={<AddSquareOutline fontSize={18} />} onClick={() => redirectTo("/goals/add")} />
 		</div>
 	)
 }
