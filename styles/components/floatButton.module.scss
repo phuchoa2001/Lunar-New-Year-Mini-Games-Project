@@ -1,0 +1,34 @@
+.floatButton {
+  position: absolute;
+  bottom: 70px;
+  right: 20px;
+  z-index: 100;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+
+.floatButton:hover {
+  opacity: 0.5;
+}
+
+.boxButton {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.container {
+  height: 100%;
+  position: relative;
+}

@@ -26,9 +26,8 @@ export default () => {
       <List header='Tài khoản'>
         <List.Item prefix={<UserOutline />} onClick={() => { }}>UserName</List.Item>
         <List.Item prefix={<UnorderedListOutline />} onClick={() => redirectTo("/personalGoalList")}>Danh sách mục tiêu</List.Item>
-        <List.Item prefix={<AddSquareOutline />} onClick={() => { }}>Thêm mục tiêu</List.Item>
+        <List.Item prefix={<AddSquareOutline />} onClick={() => redirectTo("/goals/add")}>Thêm mục tiêu</List.Item>
       </List>
-
       <List header='Thông tin'>
         <List.Item prefix={<FacebookOutlined />} onClick={() => { }}>
           Liên hệ Facebook
