@@ -1,11 +1,12 @@
-import { login as apiLogin } from 'api/authService';
+import AutoFocusInput from '@/components/AutoFocusInput';
+import UnauthenticatedContent from '@/components/auth/UnauthenticatedContent';
 import Styles from '@/styles/setIDGame.module.scss';
-import { Button, Input, NavBar, Space, Toast } from 'antd-mobile';
+import { Button, NavBar, Space, Toast } from 'antd-mobile';
+import { login as apiLogin } from 'api/authService';
 import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import generateRandomId from 'utils/generateRandomId';
-import UnauthenticatedContent from '@/components/auth/UnauthenticatedContent';
 
 export default function SetIDGame() {
   const { login } = useAuth();
@@ -48,7 +49,7 @@ export default function SetIDGame() {
           <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>
         </div>
         <Space direction="vertical" block style={{ marginTop: '20px' }}>
-          <Input
+          <AutoFocusInput
             clearable
             ref={inputRef}
             placeholder="Nhập ID Game của bạn"

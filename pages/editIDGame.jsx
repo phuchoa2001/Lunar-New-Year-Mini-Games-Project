@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Input, Button, NavBar, Space } from 'antd-mobile';
-import { useRouter } from 'next/router';
-import Styles from '@/styles/setIDGame.module.scss';
-import useAuth from 'hooks/useAuth';
+import AutoFocusInput from '@/components/AutoFocusInput';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
+import Styles from '@/styles/setIDGame.module.scss';
+import { Button, NavBar, Space } from 'antd-mobile';
+import useAuth from 'hooks/useAuth';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import addKeyLocalStorage from 'utils/localStorage';
 
 export default function SetIDGame() {
@@ -44,7 +45,7 @@ export default function SetIDGame() {
         </div>
         <Space direction="vertical" block style={{ marginTop: '20px' }}>
           {!isLoading && (
-            <Input
+            <AutoFocusInput
               clearable
               ref={inputRef}
               placeholder="Nhập ID Game của bạn"
