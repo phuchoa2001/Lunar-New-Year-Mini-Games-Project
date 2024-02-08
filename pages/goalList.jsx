@@ -7,9 +7,8 @@ import { useRouter } from 'next/router'
 
 function GoalList(props) {
 	const router = useRouter();
-
-  const redirectTo = (value) => {
-    router.push(value);
+	const redirectTo = (value) => {
+		router.push(value);
 	}
 
 	return (

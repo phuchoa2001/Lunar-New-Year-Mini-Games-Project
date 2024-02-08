@@ -38,7 +38,7 @@ export default () => {
               <div className={Styles.icon}><EditFill fontSize={25} onClick={() => redirectTo("/editIDGame")} /></div>
             </div>
           </List.Item>
-          <List.Item prefix={<UnorderedListOutline />} onClick={() => redirectTo("/personalGoalList")}>Danh sách mục tiêu</List.Item>
+          <List.Item prefix={<UnorderedListOutline />} onClick={() => redirectTo("/personalGoalList")}>Danh sách mục tiêu của bạn</List.Item>
           <List.Item prefix={<AddSquareOutline />} onClick={() => redirectTo("/goals/add")}>Thêm mục tiêu</List.Item>
           <List.Item prefix={<DeleteOutline />} onClick={() => {
             redirectTo("/setIDGame")
@@ -47,12 +47,7 @@ export default () => {
         </List>
         <List header='Thông tin'>
           <List.Item prefix={<FacebookOutlined />} onClick={() => {
-            Toast.show({
-              content: 'Tính năng này . đang phát triển',
-              afterClose: () => {
-                console.log('after')
-              },
-            })
+            window.open('https://web.facebook.com/caymuctieu/', '_blank');
           }}>
             Liên hệ Facebook
           </List.Item>
