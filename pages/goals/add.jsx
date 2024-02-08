@@ -13,6 +13,7 @@ import { requiredFieldRule } from 'utils/validationRules';
 import { GAME_OPTION } from 'constants/Game';
 import NavBarBack from '@/components/NavBarBack';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
+import AutoFocusTextArea from '@/components/AutoFocusTextArea';
 
 export default () => {
 	const [formData, setFormData] = useState({
@@ -50,7 +51,7 @@ export default () => {
 							<Input onChange={console.log} placeholder='vd:admin001' disabled />
 						</Form.Item>
 						<Form.Item name='target' label='Mục tiêu 2024' rules={requiredFieldRule}>
-							<TextArea
+							<AutoFocusTextArea
 								placeholder='Ghi mục tiêu chơi game Avatar 2014, mục tiêu đời sống 2024, hay điều gì đó muốn chia sẻ cùng cộng đồng. Ví dụ: nâng cấp cánh XX, học hỏi, tìm bạn trai'
 								maxLength={1000}
 								autoSize={{
