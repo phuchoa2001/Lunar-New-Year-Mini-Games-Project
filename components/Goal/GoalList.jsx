@@ -3,6 +3,7 @@ import { Button, List } from 'antd-mobile';
 import { UserOutline } from 'antd-mobile-icons';
 import GoalFilter from './GoalFilter';
 import GoalItem from './GoalItem';
+import GoalItemUser from './GoalItemUser';
 
 const users = [
   {
@@ -51,7 +52,7 @@ function GoalList(props) {
             }
             style={{ background: "#f4f2e7" }}
           >
-            <GoalItem  {...user} />
+            <GoalItemUser  {...user} />
           </List.Item>
         ))}
       </List>

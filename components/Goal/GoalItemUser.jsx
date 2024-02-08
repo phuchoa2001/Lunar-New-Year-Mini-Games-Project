@@ -1,9 +1,9 @@
 import React from 'react';
-import { Space, Toast } from 'antd';
+import { Space, Toast, Tag } from 'antd';
 import Styles from '@/styles/components/goalItem.module.scss';
 import GoalItemStatus from './GoalItemStatus';
 
-function GoalItem(props) {
+function GoalItemUser(props) {
   return (
     <>
       <Space justify="between" className='w-full justify-between mb-2' align="center" >
@@ -18,8 +18,14 @@ function GoalItem(props) {
           <GoalItemStatus status={2} />
         </Space>
       </Space>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }} className={Styles.boxTag}>
+        <Space justify="center">
+          <Tag color='default'>Sửa</Tag>
+          <Tag color='red'>Xóa</Tag>
+        </Space>
+      </div>
     </>
   );
 }
 
-export default GoalItem;
+export default GoalItemUser;
