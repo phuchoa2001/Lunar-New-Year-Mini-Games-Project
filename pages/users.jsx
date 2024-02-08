@@ -8,7 +8,8 @@ import {
   UserOutline,
   AddSquareOutline,
   TeamOutline,
-  InformationCircleOutline
+  InformationCircleOutline,
+  DeleteOutline
 } from 'antd-mobile-icons'
 import Styles from '@/styles/User.module.scss'
 import { FacebookOutlined } from '@ant-design/icons'
@@ -31,7 +32,10 @@ export default () => {
           <List.Item prefix={<UserOutline />}>UserName</List.Item>
           <List.Item prefix={<UnorderedListOutline />} onClick={() => redirectTo("/personalGoalList")}>Danh sách mục tiêu</List.Item>
           <List.Item prefix={<AddSquareOutline />} onClick={() => redirectTo("/goals/add")}>Thêm mục tiêu</List.Item>
-          <List.Item prefix={<AddSquareOutline />} onClick={() => logout()}>Xóa tất cả dữ liệu</List.Item>
+          <List.Item prefix={<DeleteOutline />} onClick={() => {
+            redirectTo("/setIDGame")
+            logout()
+          }}>Xóa tất cả dữ liệu</List.Item>
         </List>
         <List header='Thông tin'>
           <List.Item prefix={<FacebookOutlined />} onClick={() => {
