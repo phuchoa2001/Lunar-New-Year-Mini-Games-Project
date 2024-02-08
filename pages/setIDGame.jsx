@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Input, Button, NavBar, Space } from 'antd-mobile';
-import { useRouter } from 'next/router';
+import { login as apiLogin } from 'api/authService';
 import Styles from '@/styles/setIDGame.module.scss';
+import { Button, Input, NavBar, Space, Toast } from 'antd-mobile';
 import useAuth from 'hooks/useAuth';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import generateRandomId from 'utils/generateRandomId';
 
 export default function SetIDGame() {
   const { login } = useAuth();
@@ -10,9 +12,28 @@ export default function SetIDGame() {
   const router = useRouter();
   const inputRef = useRef(null);
 
-  const handleConfirm = () => {
-    // Gọi Api nhận từ confirmUser và Iduser đi backend
-    console.log(idGame);
+  const handleSetIDGame = async () => {
+    try {
+      const response = await apiLogin({
+        idUser: generateRandomId(),
+        confirmUser: generateRandomId()
+      });
+      if (response) {
+        Toast.show({
+          content: 'Thêm idGame thành công.',
+        })
+        login({
+          idGame : idGame,
+          idUser: response.idUser,
+          confirmUser: response.confirmUser
+        })
+        router.back();
+      }
+    } catch (error) {
+      Toast.show({
+        content: 'Thêm idGame thất bại.',
+      })
+    }
   };
 
   useEffect(() => {
@@ -32,7 +53,7 @@ export default function SetIDGame() {
           value={idGame}
           onChange={value => setIdGame(value)}
         />
-        <Button color="primary" block onClick={handleConfirm}>
+        <Button color="primary" block onClick={handleSetIDGame}>
           Xác nhận
         </Button>
       </Space>

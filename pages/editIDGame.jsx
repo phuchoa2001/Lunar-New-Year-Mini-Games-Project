@@ -3,6 +3,7 @@ import { Input, Button, NavBar, Space } from 'antd-mobile';
 import { useRouter } from 'next/router';
 import Styles from '@/styles/setIDGame.module.scss';
 import useAuth from 'hooks/useAuth';
+import ProtectedComponent from '@/components/auth/ProtectedComponent';
 
 export default function SetIDGame() {
   const { login } = useAuth();
@@ -20,22 +21,24 @@ export default function SetIDGame() {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }} className={Styles.setIDGame}>
-      <div style={{ background: "#fff" }} >
-        <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>
+    <ProtectedComponent>
+      <div style={{ padding: '20px' }} className={Styles.setIDGame}>
+        <div style={{ background: "#fff" }} >
+          <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>
+        </div>
+        <Space direction="vertical" block style={{ marginTop: '20px' }}>
+          <Input
+            clearable
+            ref={inputRef}
+            placeholder="Nhập ID Game của bạn"
+            value={idGame}
+            onChange={value => setIdGame(value)}
+          />
+          <Button color="primary" block onClick={handleConfirm}>
+            Xác nhận
+          </Button>
+        </Space>
       </div>
-      <Space direction="vertical" block style={{ marginTop: '20px' }}>
-        <Input
-          clearable
-          ref={inputRef}
-          placeholder="Nhập ID Game của bạn"
-          value={idGame}
-          onChange={value => setIdGame(value)}
-        />
-        <Button color="primary" block onClick={handleConfirm}>
-          Xác nhận
-        </Button>
-      </Space>
-    </div>
+    </ProtectedComponent>
   );
 }
