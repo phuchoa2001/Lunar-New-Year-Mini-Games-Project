@@ -4,7 +4,11 @@ import useAuth from 'hooks/useAuth';
 import Redirect from '@/components/Redirect';
 
 const ProtectedComponent = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated , isLoading } = useAuth();
+
+  if(isLoading) {
+    return <></>
+  }
 
   if (isAuthenticated) {
     return <>{children}</>;

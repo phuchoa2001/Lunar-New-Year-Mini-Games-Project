@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Switch, Toast } from 'antd-mobile'
+import { List, Space, Switch, Toast } from 'antd-mobile'
 import { useRouter } from 'next/router'
 import {
   UnorderedListOutline,
@@ -9,7 +9,8 @@ import {
   AddSquareOutline,
   TeamOutline,
   InformationCircleOutline,
-  DeleteOutline
+  DeleteOutline,
+  EditFill
 } from 'antd-mobile-icons'
 import Styles from '@/styles/User.module.scss'
 import { FacebookOutlined } from '@ant-design/icons'
@@ -19,7 +20,7 @@ import useAuth from 'hooks/useAuth'
 export default () => {
   const router = useRouter();
   const { pathname } = router
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const redirectTo = (value) => {
     router.push(value);
@@ -29,7 +30,14 @@ export default () => {
     <ProtectedComponent>
       <div className={Styles.user}>
         <List header='Tài khoản'>
-          <List.Item prefix={<UserOutline />}>UserName</List.Item>
+          <List.Item prefix={<UserOutline />}>
+            <div className='w-full flex'>
+              <div className={Styles.userName}>
+                <div>{user?.idGame || "username"}</div>
+              </div>
+              <div className={Styles.icon}><EditFill fontSize={25} onClick={() => redirectTo("/editIDGame")} /></div>
+            </div>
+          </List.Item>
           <List.Item prefix={<UnorderedListOutline />} onClick={() => redirectTo("/personalGoalList")}>Danh sách mục tiêu</List.Item>
           <List.Item prefix={<AddSquareOutline />} onClick={() => redirectTo("/goals/add")}>Thêm mục tiêu</List.Item>
           <List.Item prefix={<DeleteOutline />} onClick={() => {

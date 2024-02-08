@@ -27,9 +27,9 @@ function GoalList(props) {
 						</Tabs.Tab>
 					</Tabs>
 					<FloatButton icon={<AddSquareOutline fontSize={18} />} onClick={() => redirectTo("/goals/add")} />
-				</ProtectedComponent>
-			</div>
-		</NavBarBack>
+				</div>
+			</NavBarBack>
+		</ProtectedComponent>
 	);
 }
 

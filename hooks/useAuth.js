@@ -3,6 +3,7 @@ import addKeyLocalStorage from 'utils/localStorage';
 
 const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -10,6 +11,7 @@ const useAuth = () => {
     const user = JSON.parse(localStorage.getItem(addKeyLocalStorage('user')));
     setIsAuthenticated(isAuth === 'true');
     setUser(user);
+    setIsLoading(false);
   }, []);
 
   const login = (user) => {
@@ -22,7 +24,7 @@ const useAuth = () => {
     localStorage.removeItem(addKeyLocalStorage('isAuth'));
     setIsAuthenticated(false);
   };
-  return { isAuthenticated, login, logout, user };
+  return { isAuthenticated, login, logout, user , isLoading };
 };
 
 export default useAuth;
