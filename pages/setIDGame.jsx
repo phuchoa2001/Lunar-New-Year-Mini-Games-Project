@@ -5,6 +5,7 @@ import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import generateRandomId from 'utils/generateRandomId';
+import UnauthenticatedContent from '@/components/auth/UnauthenticatedContent';
 
 export default function SetIDGame() {
   const { login } = useAuth();
@@ -23,7 +24,7 @@ export default function SetIDGame() {
           content: 'Thêm idGame thành công.',
         })
         login({
-          idGame : idGame,
+          idGame: idGame,
           idUser: response.idUser,
           confirmUser: response.confirmUser
         })
@@ -41,22 +42,24 @@ export default function SetIDGame() {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }} className={Styles.setIDGame}>
-      <div style={{ background: "#fff" }} >
-        <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>
+    <UnauthenticatedContent to="/editIDGame">
+      <div style={{ padding: '20px' }} className={Styles.setIDGame}>
+        <div style={{ background: "#fff" }} >
+          <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>
+        </div>
+        <Space direction="vertical" block style={{ marginTop: '20px' }}>
+          <Input
+            clearable
+            ref={inputRef}
+            placeholder="Nhập ID Game của bạn"
+            value={idGame}
+            onChange={value => setIdGame(value)}
+          />
+          <Button color="primary" block onClick={handleSetIDGame}>
+            Xác nhận
+          </Button>
+        </Space>
       </div>
-      <Space direction="vertical" block style={{ marginTop: '20px' }}>
-        <Input
-          clearable
-          ref={inputRef}
-          placeholder="Nhập ID Game của bạn"
-          value={idGame}
-          onChange={value => setIdGame(value)}
-        />
-        <Button color="primary" block onClick={handleSetIDGame}>
-          Xác nhận
-        </Button>
-      </Space>
-    </div>
+    </UnauthenticatedContent>
   );
 }

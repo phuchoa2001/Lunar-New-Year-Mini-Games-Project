@@ -3,7 +3,13 @@ import useAuth from 'hooks/useAuth';
 import Redirect from '@/components/Redirect';
 
 const UnauthenticatedContent = ({ children, to }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated , isLoading } = useAuth();
+
+  console.log("isAuthenticated" , isAuthenticated , isLoading);
+
+  if(isLoading) {
+    return <></>
+  }
 
   if (!isAuthenticated) {
     return <>{children}</>;

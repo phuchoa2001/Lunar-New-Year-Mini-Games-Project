@@ -4,37 +4,55 @@ import { useRouter } from 'next/router';
 import Styles from '@/styles/setIDGame.module.scss';
 import useAuth from 'hooks/useAuth';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
+import addKeyLocalStorage from 'utils/localStorage';
 
 export default function SetIDGame() {
-  const { login } = useAuth();
-  const [idGame, setIdGame] = useState('');
+  const { login, user, isLoading } = useAuth();
+  const [idGame, setIdGame] = useState("");
   const router = useRouter();
   const inputRef = useRef(null);
 
-  const handleConfirm = () => {
-    // Gọi Api nhận từ confirmUser và Iduser đi backend
-    console.log(idGame);
+  const handleEditIDGame = () => {
+    localStorage.setItem(addKeyLocalStorage('user'), JSON.stringify({
+      ...user,
+      idGame
+    }));
+    router.push("/users");
   };
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (!isLoading) {
+      setIdGame(user.idGame)
+    }
+  }, [isLoading])
+
+  useEffect(() => {
+    if (!isLoading && inputRef.current) {
+      inputRef.current?.focus();
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <></>
+  }
 
   return (
     <ProtectedComponent>
       <div style={{ padding: '20px' }} className={Styles.setIDGame}>
         <div style={{ background: "#fff" }} >
-          <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>
+          <NavBar onBack={() => router.back()}>Sửa ID Game</NavBar>
         </div>
         <Space direction="vertical" block style={{ marginTop: '20px' }}>
-          <Input
-            clearable
-            ref={inputRef}
-            placeholder="Nhập ID Game của bạn"
-            value={idGame}
-            onChange={value => setIdGame(value)}
-          />
-          <Button color="primary" block onClick={handleConfirm}>
+          {!isLoading && (
+            <Input
+              clearable
+              ref={inputRef}
+              placeholder="Nhập ID Game của bạn"
+              value={idGame}
+              onChange={value => setIdGame(value)}
+            />
+          )}
+          <Button color="primary" block onClick={handleEditIDGame}>
             Xác nhận
           </Button>
         </Space>

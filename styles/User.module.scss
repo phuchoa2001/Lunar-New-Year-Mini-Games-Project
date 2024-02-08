@@ -3,3 +3,14 @@
   min-height: 100vh;
   width: 100%;
 }
+
+.userName {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.icon:hover {
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
