@@ -5,9 +5,17 @@ import { Space, Toast } from 'antd-mobile';
 import { statsService } from 'api/statsService';
 import { Spin } from 'antd';
 import { useStats } from 'hooks/swr/userStats';
+import { useStatsContext } from 'context/statsContext';
 
 function Header(props) {
   const { data, isLoading } = useStats();
+  const { data: dataStatsContext, setData } = useStatsContext();
+
+  useEffect(() => {
+    if (!isLoading) {
+      setData(data)
+    }
+  }, [isLoading])
 
   return (
     <div>
@@ -17,9 +25,9 @@ function Header(props) {
         )}
         {!isLoading && (
           <>
-            <Typography.Text className='text-white'>{data?.result?.views} lượt truy cập </Typography.Text>
+            <Typography.Text className='text-white'>{dataStatsContext?.result?.views} lượt truy cập </Typography.Text>
             <Typography.Text className='text-white px-2'>-</Typography.Text>
-            <Typography.Text className='text-white'> {data.count} người dùng</Typography.Text>
+            <Typography.Text className='text-white'> {dataStatsContext.count} người dùng</Typography.Text>
           </>
         )}
       </Space>
