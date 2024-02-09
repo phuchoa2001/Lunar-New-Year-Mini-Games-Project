@@ -4,28 +4,10 @@ import { Typography } from 'antd';
 import { Space, Toast } from 'antd-mobile';
 import { statsService } from 'api/statsService';
 import { Spin } from 'antd';
+import { useStats } from 'hooks/swr/userStats';
 
 function Header(props) {
-  const [stats, setStats] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await statsService();
-      if (response) {
-        setStats(response)
-      }
-      setIsLoading(false)
-    } catch (error) {
-      Toast.show({
-        content: 'Lấy thông kế thất bại',
-      })
-      setIsLoading(false)
-    }
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data, isLoading } = useStats();
 
   return (
     <div>
@@ -35,9 +17,9 @@ function Header(props) {
         )}
         {!isLoading && (
           <>
-            <Typography.Text className='text-white'>{stats?.result?.views} lượt truy cập </Typography.Text>
+            <Typography.Text className='text-white'>{data?.result?.views} lượt truy cập </Typography.Text>
             <Typography.Text className='text-white px-2'>-</Typography.Text>
-            <Typography.Text className='text-white'> {stats.count} người dùng</Typography.Text>
+            <Typography.Text className='text-white'> {data.count} người dùng</Typography.Text>
           </>
         )}
       </Space>
