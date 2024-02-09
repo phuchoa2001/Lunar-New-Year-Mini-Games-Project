@@ -7,12 +7,17 @@ import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import generateRandomId from 'utils/generateRandomId';
+import { useSWRConfig } from "swr"
+import { STATS } from 'constants/queryKeys';
+import { useStatsContext } from 'context/statsContext';
 
 export default function SetIDGame() {
   const { login } = useAuth();
   const [idGame, setIdGame] = useState('');
   const router = useRouter();
   const inputRef = useRef(null);
+  const { data, setData } = useStatsContext();
+  const { mutate } = useSWRConfig()
 
   const handleSetIDGame = async () => {
     try {
@@ -29,6 +34,12 @@ export default function SetIDGame() {
           idUser: response.idUser,
           confirmUser: response.confirmUser
         })
+        const newData = {
+          ...data,
+          count: data.count + 1
+        }
+        mutate(STATS.STATS, newData, false)
+        setData(newData)
         router.back();
       }
     } catch (error) {

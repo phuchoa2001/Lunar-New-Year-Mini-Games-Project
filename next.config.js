@@ -19,7 +19,8 @@ module.exports = withTM({
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/api/*": ["api/*"]
+      "@/api/*": ["api/*"],
+      "@/context/*": ["context/*"]
     }
   },
   content: [
