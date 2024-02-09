@@ -10,7 +10,13 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<SWRConfig
 			value={{
-				fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+				fetcher: (resource, init) => fetch(resource, init).then(res => res.json()),
+				revalidateOnFocus: false,
+				revalidateOnReconnect: false,
+				refreshWhenHidden: false,
+				refreshWhenOffline: false,
+				refreshInterval: 0,
+				focusThrottleInterval: 0
 			}}
 		>
 			<RootLayout>
