@@ -8,17 +8,15 @@ import { useGoalsList } from 'hooks/swr/useGoal';
 import LoadingComponent from '@/components/Loading';
 import { LIMIT } from 'constants/common';
 import scrollToTop from 'utils/scrollToTop';
-import GoalItemUser from './GoalItemUser';
 
-function GoalList(props) {
+function GoalPublic(props) {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [filter, setFilter] = useState({
 		search: null,
 		limit: LIMIT,
 		page: 1,
 		filter: {
-			status: 2,
-      idUser : props.idUser
+			status: 2
 		}
 	})
 	const { goalsList, isLoading, isError } = useGoalsList(filter);
@@ -45,7 +43,7 @@ function GoalList(props) {
 						}
 						style={{ background: "#f4f2e7" }}
 					>
-						<GoalItemUser  {...user} />
+						<GoalItem  {...user} />
 					</List.Item>
 				))}
 			</List>
@@ -68,4 +66,4 @@ function GoalList(props) {
 	);
 }
 
-export default GoalList;
+export default GoalPublic;
