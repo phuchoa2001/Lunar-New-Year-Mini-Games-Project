@@ -20,8 +20,8 @@ function Tabs(props) {
 			icon: <HomeOutlined />,
 		},
 		{
-			key: '/goalList',
-			title: 'Danh sách mục tiêu',
+			key: '/publicGoals',
+			title: 'Mục tiêu công động',
 			icon: <UnorderedListOutline />,
 		},
 		{

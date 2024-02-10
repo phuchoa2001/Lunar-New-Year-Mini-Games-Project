@@ -6,6 +6,7 @@ import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import addKeyLocalStorage from 'utils/localStorage';
+import LoadingComponent from '@/components/Loading';
 
 export default function SetIDGame() {
   const { login, user, isLoading } = useAuth();
@@ -34,7 +35,7 @@ export default function SetIDGame() {
   }, [isLoading]);
 
   if (isLoading) {
-    return <></>
+    return <LoadingComponent />
   }
 
   return (

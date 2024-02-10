@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { SearchBar, Button, Picker } from 'antd-mobile';
 import { FilterOutline } from 'antd-mobile-icons';
 import debounce from 'lodash/debounce';
 import { GAME_OPTION } from 'constants/Game';
 
-function GoalFilter() {
+function GoalFilter({ filter, setFilter }) {
   const [visible, setVisible] = useState(false)
   const [value, setValue] = useState(["all"])
   const [search, setSearch] = useState('');
@@ -16,9 +16,12 @@ function GoalFilter() {
     ],
   ]
 
-  console.log("visible" , visible);
   const handleSearch = (searchValue) => {
-    console.log('Searching for:', searchValue);
+    setFilter((prev) => ({
+      ...prev,
+      page: 1,
+      search: searchValue ? searchValue : null
+    }))
   };
 
   const debouncedSearch = useCallback(
@@ -30,6 +33,10 @@ function GoalFilter() {
     setSearch(searchValue);
     debouncedSearch(searchValue);
   };
+
+  useEffect(() => {
+    setSearch(filter.search)
+  }, [filter.search])
 
   return (
     <div>
@@ -60,15 +67,25 @@ function GoalFilter() {
           onClose={() => {
             setVisible(false)
           }}
-          value={value}
+          value={filter.filter?.inGame ? [filter.filter?.inGame] : ["all"]}
           onConfirm={v => {
-            setValue(v)
+            setFilter(prev => {
+              const newPrev = { ...prev };
+              if (v[0] === "all") {
+                newPrev.page = 1;
+                delete newPrev.filter.inGame;
+              } else {
+                newPrev.page = 1;
+                newPrev.filter.inGame = v[0]
+              }
+              return newPrev;
+            })
           }}
         />
       </div>
-      {value[0] !== "all" && (
+      {filter.filter?.inGame && (
         <div className='mt-1 text-sm mb-1'>
-          {`Lọc : ${value}`}
+          {`Lọc : ${filter.filter?.inGame}`}
         </div>
       )}
     </div>

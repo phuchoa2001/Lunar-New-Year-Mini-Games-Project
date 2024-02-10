@@ -1,32 +1,63 @@
+import AutoFocusTextArea from '@/components/AutoFocusTextArea';
+import LoadingComponent from '@/components/Loading';
+import NavBarBack from '@/components/NavBarBack';
+import ProtectedComponent from '@/components/auth/ProtectedComponent';
 import Styles from '@/styles/goals/add.module.scss';
-import { useState } from 'react';
 import {
 	Button,
-	Dialog,
 	Form,
 	Input,
 	Selector,
-	Space,
-	TextArea
+	TextArea,
+	Toast
 } from 'antd-mobile';
-import { requiredFieldRule } from 'utils/validationRules';
 import { GAME_OPTION } from 'constants/Game';
-import NavBarBack from '@/components/NavBarBack';
-import ProtectedComponent from '@/components/auth/ProtectedComponent';
-import AutoFocusTextArea from '@/components/AutoFocusTextArea';
+import { useAddGoal } from 'hooks/swr/useGoal';
+import useAuth from 'hooks/useAuth';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { requiredFieldRule } from 'utils/validationRules';
 
 export default () => {
+	const { user, isLoading } = useAuth();
+	const addNewGoal = useAddGoal();
+	const router = useRouter();
+	const [form] = Form.useForm();
 	const [formData, setFormData] = useState({
-		idGame: 'phuchoa00',
+		idGame: "phuchoa00",
 		target: '',
 		note: '',
-		inGame: 'Avatar 3x',
+		inGame: ['Avatar 3x'],
 	});
 
-	const onFinish = (values) => {
-		Dialog.alert({
-			content: <pre>{JSON.stringify(values, null, 2)}</pre>,
+	const onFinish = async (values) => {
+		const res = await addNewGoal({
+			...values,
+			idUser: user.idUser,
+			inGame : values.inGame[0]
 		})
+		if (res.isSuccess) {
+			Toast.show({
+				content: 'Thêm mục tiêu thành công',
+			})
+			router.push("/publicGoals")
+		} else {
+			Toast.show({
+				content: 'Thêm mục tiêu thất bại',
+			})
+		}
+	}
+
+	useEffect(() => {
+		if (!isLoading) {
+			form.setFieldsValue({
+				idGame: user.idGame
+			});
+		}
+	}, [isLoading])
+
+	if (isLoading) {
+		return <LoadingComponent />
 	}
 
 	return (
@@ -35,6 +66,7 @@ export default () => {
 				<div className={Styles.add}>
 					<Form
 						layout='vertical'
+						form={form}
 						onFinish={onFinish}
 						footer={
 							<Button block type='submit' color='primary' size='large'>
