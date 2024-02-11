@@ -6,7 +6,9 @@ const AutoFocusInput = (props) => {
 
   useEffect(() => {
     if (inputRef.current) {
+      const length = inputRef.current.nativeElement.value.length;
       inputRef.current.focus();
+      inputRef.current.nativeElement.setSelectionRange(length, length);
     }
   }, []);
 
