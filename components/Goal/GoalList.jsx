@@ -21,7 +21,7 @@ function GoalList(props) {
       idUser : props.idUser
 		}
 	})
-	const { goalsList, isLoading, isError } = useGoalsList(filter);
+	const { goalsList, isLoading, isError , mutate } = useGoalsList(filter);
 
 	const handlePageClick = (event) => {
 		setCurrentPage(event.selected);
@@ -45,7 +45,7 @@ function GoalList(props) {
 						}
 						style={{ background: "#f4f2e7" }}
 					>
-						<GoalItemUser  {...user} />
+						<GoalItemUser  {...user} mutate={mutate} />
 					</List.Item>
 				))}
 			</List>
