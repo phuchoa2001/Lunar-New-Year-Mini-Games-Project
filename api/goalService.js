@@ -20,7 +20,7 @@ export const getGoalsList = async (filter) => {
 export const getGoalDetails = async (goalId) => {
   try {
     const response = await axiosClient.get(`/goals/${goalId}`);
-    return response.data;
+    return response;
   } catch (error) {
     console.error(`Failed to fetch details for goal ${goalId}:`, error.response);
     throw error;

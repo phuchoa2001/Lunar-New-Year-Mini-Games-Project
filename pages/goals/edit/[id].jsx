@@ -1,32 +1,72 @@
+import AutoFocusTextArea from '@/components/AutoFocusTextArea';
+import LoadingComponent from '@/components/Loading';
+import NavBarBack from '@/components/NavBarBack';
+import ProtectedComponent from '@/components/auth/ProtectedComponent';
 import Styles from '@/styles/goals/add.module.scss';
-import { useState } from 'react';
 import {
   Button,
-  Dialog,
   Form,
   Input,
   Selector,
-  Space,
-  TextArea
+  TextArea,
+  Toast
 } from 'antd-mobile';
-import { requiredFieldRule } from 'utils/validationRules';
 import { GAME_OPTION } from 'constants/Game';
-import NavBarBack from '@/components/NavBarBack';
-import ProtectedComponent from '@/components/auth/ProtectedComponent';
-import AutoFocusTextArea from '@/components/AutoFocusTextArea';
+import { useGoalContext } from 'context/goalContext';
+import { useGoalDetails, useUpdateGoal } from 'hooks/swr/useGoal';
+import useAuth from 'hooks/useAuth';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { requiredFieldRule } from 'utils/validationRules';
 
 export default () => {
-  const [formData, setFormData] = useState({
-    idGame: 'phuchoa00',
-    target: '',
-    note: '',
-    inGame: 'Avatar 3x',
-  });
+  const router = useRouter();
+  const { id } = router.query;
+  const [form] = Form.useForm();
 
-  const onFinish = (values) => {
-    Dialog.alert({
-      content: <pre>{JSON.stringify(values, null, 2)}</pre>,
+  const { user, isLoading: isLoadingAuth } = useAuth();
+  const updateGoal = useUpdateGoal();
+  const { data, resetData } = useGoalContext();
+  const { goalDetails, isLoading } = useGoalDetails(id, !data.idGame);
+
+  function getFirstElementOrString(input) {
+    if (Array.isArray(input)) {
+      return input[0];
+    } else {
+      return input;
+    }
+  }
+
+  const onFinish = async (values) => {
+    const res = await updateGoal(id, {
+      ...values,
+      idUser: user.idUser,
+      inGame: getFirstElementOrString(values.inGame),
+      confirmUser: user.confirmUser
     })
+    if (res.isSuccess) {
+      Toast.show({
+        content: 'Sửa mục tiêu thành công',
+      })
+      resetData();
+      router.back()
+    } else {
+      Toast.show({
+        content: 'Sửa mục tiêu thất bại',
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (!data.idGame && !isLoading) {
+      form.setFieldsValue({
+        ...goalDetails
+      });
+    }
+  }, [isLoading])
+
+  if (isLoading && !data.idGame && !isLoadingAuth) {
+    return <LoadingComponent />
   }
 
   return (
@@ -36,12 +76,13 @@ export default () => {
           <Form
             layout='vertical'
             onFinish={onFinish}
+            initialValues={data}
+            form={form}
             footer={
               <Button block type='submit' color='primary' size='large'>
                 Sửa
               </Button>
             }
-            initialValues={formData}
           >
             <Form.Item
               name='idGame'

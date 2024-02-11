@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { GOAL } from 'constants/queryKeys';
 import { mutate } from 'swr';
-import { addGoal, getGoalsList } from 'api/goalService';
+import { addGoal, getGoalsList, getGoalDetails, updateGoal } from 'api/goalService';
 
 export const useGoalsList = (filter) => {
   const fetcher = () => getGoalsList(filter);
@@ -13,16 +13,18 @@ export const useGoalsList = (filter) => {
   };
 };
 
-export const useGoalDetails = (goalId) => {
-  const fetcher = () => goalsService.getGoalDetails(goalId);
-  const { data, error } = useSWR(`${GOAL.ID}_${goalId}`, fetcher);
+export const useGoalDetails = (goalId, shouldFetch) => {
+  const fetcher = shouldFetch ? () => getGoalDetails(goalId) : null;
+  const { data, error } = useSWR(shouldFetch ? `${GOAL.ID}_${goalId}` : null, fetcher);
+
+  console.log("data", data);
+
   return {
     goalDetails: data,
     isLoading: !error && !data,
     isError: error
   };
 };
-
 
 export const useAddGoal = () => {
   const addNewGoal = async (newGoalData) => {
@@ -41,16 +43,24 @@ export const useAddGoal = () => {
   return addNewGoal;
 };
 
-export const updateGoal = async (goalId, updatedGoalData) => {
-  try {
-    const updatedGoal = await goalsService.updateGoal(goalId, updatedGoalData);
-    mutate(`${GOAL.ID}_${goalId}`);
-    mutate(GOAL.LIST);
-    return updatedGoal;
-  } catch (error) {
-    console.error("Failed to update goal:", error);
-    throw error;
-  }
+export const useUpdateGoal = () => {
+  const updateGoalFuncion = async (goalId, updatedGoalData) => {
+    console.log("updateGoal :", goalId, updatedGoalData);
+    try {
+      const updatedGoal = await updateGoal(goalId, updatedGoalData);
+      return {
+        isSuccess: true,
+        data: updatedGoal
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error: error
+      };
+    }
+  };
+
+  return updateGoalFuncion;
 };
 
 export const deleteGoal = async (goalId) => {
