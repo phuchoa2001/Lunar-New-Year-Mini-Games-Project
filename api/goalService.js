@@ -57,8 +57,23 @@ export const deleteGoal = async (goalId) => {
       }
     });
     console.log("response" , response);
-    
+
     return response;  // Hoặc trả về giá trị cụ thể nếu API không trả về dữ liệu
+  } catch (error) {
+    console.error(`Failed to delete goal ${goalId}:`, error.response);
+    throw error;
+  }
+};
+
+// mục tiêu ngẫu nhiên
+export const randomGoal = async (userId) => {
+  try {
+    const response = await axiosClient.get(`/goals/random` , {
+      params : {
+        userId 
+      }
+    });
+    return response;
   } catch (error) {
     console.error(`Failed to delete goal ${goalId}:`, error.response);
     throw error;

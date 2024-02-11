@@ -8,6 +8,7 @@ import { useGoalsList } from 'hooks/swr/useGoal';
 import LoadingComponent from '@/components/Loading';
 import { LIMIT } from 'constants/common';
 import scrollToTop from 'utils/scrollToTop';
+import RandomUserViewer from "@/components/RandomUserViewer"
 
 function GoalPublic(props) {
 	const [currentPage, setCurrentPage] = useState(0);
@@ -31,9 +32,7 @@ function GoalPublic(props) {
 	return (
 		<>
 			<GoalFilter filter={filter} setFilter={setFilter} />
-			<Button block color='primary' size='middle'>
-				Xem người ngẫu nhiên
-			</Button>
+			<RandomUserViewer />
 			<List>
 				{goalsList?.data?.map(user => (
 					<List.Item
@@ -59,7 +58,7 @@ function GoalPublic(props) {
 						}))
 						scrollToTop();
 					}}
-					style={{ paddingBottom : 70 }}
+					style={{ paddingBottom: 70 }}
 				/>
 			</Space>
 		</>
