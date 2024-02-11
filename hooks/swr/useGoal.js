@@ -1,24 +1,22 @@
 import useSWR from 'swr'
 import { GOAL } from 'constants/queryKeys';
 import { mutate } from 'swr';
-import { addGoal, getGoalsList, getGoalDetails, updateGoal } from 'api/goalService';
+import { addGoal, getGoalsList, getGoalDetails, updateGoal, deleteGoal } from 'api/goalService';
 
 export const useGoalsList = (filter) => {
   const fetcher = () => getGoalsList(filter);
-  const { data, error } = useSWR([GOAL.LIST, JSON.stringify(filter)], fetcher);
+  const { data, error, mutate } = useSWR([GOAL.LIST, JSON.stringify(filter)], fetcher);
   return {
     goalsList: data,
     isLoading: !error && !data,
-    isError: error
+    isError: error,
+    mutate
   };
 };
 
 export const useGoalDetails = (goalId, shouldFetch) => {
   const fetcher = shouldFetch ? () => getGoalDetails(goalId) : null;
   const { data, error } = useSWR(shouldFetch ? `${GOAL.ID}_${goalId}` : null, fetcher);
-
-  console.log("data", data);
-
   return {
     goalDetails: data,
     isLoading: !error && !data,
@@ -45,7 +43,6 @@ export const useAddGoal = () => {
 
 export const useUpdateGoal = () => {
   const updateGoalFuncion = async (goalId, updatedGoalData) => {
-    console.log("updateGoal :", goalId, updatedGoalData);
     try {
       const updatedGoal = await updateGoal(goalId, updatedGoalData);
       return {
@@ -63,12 +60,20 @@ export const useUpdateGoal = () => {
   return updateGoalFuncion;
 };
 
-export const deleteGoal = async (goalId) => {
-  try {
-    await goalsService.deleteGoal(goalId);
-    mutate(GOAL.LIST);
-  } catch (error) {
-    console.error("Failed to delete goal:", error);
-    throw error;
-  }
+export const useDeleteGoal = () => {
+  const deleteGoalFunction = async (goalId) => {
+    try {
+      await deleteGoal(goalId);
+      return {
+        isSuccess: true
+      };
+    } catch (error) {
+      return {
+        isSuccess: false,
+        error: error
+      };
+    }
+  };
+
+  return deleteGoalFunction;
 };

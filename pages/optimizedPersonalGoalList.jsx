@@ -25,7 +25,7 @@ function OptimizedPublicGoalList(props) {
       status: 1
     }
   })
-  const { goalsList, isLoading, isError } = useGoalsList(filter);
+  const { goalsList, isLoading, isError , mutate } = useGoalsList(filter);
 
   const redirectTo = (value) => {
     router.push(value);
@@ -66,7 +66,7 @@ function OptimizedPublicGoalList(props) {
                       }
                       style={{ background: "#f4f2e7" }}
                     >
-                      <GoalItemUser  {...user} />
+                      <GoalItemUser  {...user} mutate={mutate} />
                     </List.Item>
                   ))}
                 </List>

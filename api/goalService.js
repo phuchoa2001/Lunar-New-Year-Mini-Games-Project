@@ -51,8 +51,14 @@ export const updateGoal = async (goalId, updatedGoalData) => {
 // Xóa mục tiêu
 export const deleteGoal = async (goalId) => {
   try {
-    const response = await axiosClient.delete(`/goals/${goalId}`);
-    return response.data;  // Hoặc trả về giá trị cụ thể nếu API không trả về dữ liệu
+    const response = await axiosClient.delete(`/goals` , {
+      data : {
+        ids : [goalId]
+      }
+    });
+    console.log("response" , response);
+    
+    return response;  // Hoặc trả về giá trị cụ thể nếu API không trả về dữ liệu
   } catch (error) {
     console.error(`Failed to delete goal ${goalId}:`, error.response);
     throw error;
