@@ -5,6 +5,7 @@ import { HeartFill } from 'antd-mobile-icons';
 import FloatButton from '@/components/FloatButton';
 import classNames from 'classnames';
 import NavBarBack from '@/components/NavBarBack';
+import RandomUserViewer from '@/components/RandomUserViewer';
 
 const GoalDetail = () => {
   // Dữ liệu mẫu
@@ -49,6 +50,7 @@ const GoalDetail = () => {
               <div className={styles.content}>{goal.inGame}</div>
             </div>
           </div>
+          <RandomUserViewer />
         </div>
         <FloatButton icon={<HeartFill color='red' />} />
       </div>

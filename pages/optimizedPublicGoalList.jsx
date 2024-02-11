@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import scrollToTop from 'utils/scrollToTop';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
+import RandomUserViewer from "@/components/RandomUserViewer"
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
@@ -51,9 +52,7 @@ function OptimizedPublicGoalList(props) {
           ) : (
             <>
               <GoalFilter filter={filter} setFilter={setFilter} />
-              <Button block color='primary' size='middle'>
-                Xem người ngẫu nhiên
-              </Button>
+              <RandomUserViewer />
               <List>
                 {goalsList?.data?.map(user => (
                   <List.Item

@@ -9,6 +9,7 @@ import LoadingComponent from '@/components/Loading';
 import { LIMIT } from 'constants/common';
 import scrollToTop from 'utils/scrollToTop';
 import GoalItemUser from './GoalItemUser';
+import RandomUserViewer from "@/components/RandomUserViewer"
 
 function GoalList(props) {
 	const [currentPage, setCurrentPage] = useState(0);
@@ -18,10 +19,10 @@ function GoalList(props) {
 		page: 1,
 		filter: {
 			status: 2,
-      idUser : props.idUser
+			idUser: props.idUser
 		}
 	})
-	const { goalsList, isLoading, isError , mutate } = useGoalsList(filter);
+	const { goalsList, isLoading, isError, mutate } = useGoalsList(filter);
 
 	const handlePageClick = (event) => {
 		setCurrentPage(event.selected);
@@ -33,9 +34,7 @@ function GoalList(props) {
 	return (
 		<>
 			<GoalFilter filter={filter} setFilter={setFilter} />
-			<Button block color='primary' size='middle'>
-				Xem người ngẫu nhiên
-			</Button>
+			<RandomUserViewer />
 			<List>
 				{goalsList?.data?.map(user => (
 					<List.Item
@@ -61,7 +60,7 @@ function GoalList(props) {
 						}))
 						scrollToTop();
 					}}
-					style={{ paddingBottom : 70 }}
+					style={{ paddingBottom: 70 }}
 				/>
 			</Space>
 		</>

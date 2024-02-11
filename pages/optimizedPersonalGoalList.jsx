@@ -13,6 +13,7 @@ import scrollToTop from 'utils/scrollToTop';
 import NavBarBack from '@/components/NavBarBack';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
 import GoalItemUser from '@/components/Goal/GoalItemUser';
+import RandomUserViewer from "@/components/RandomUserViewer"
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
@@ -25,7 +26,7 @@ function OptimizedPublicGoalList(props) {
       status: 1
     }
   })
-  const { goalsList, isLoading, isError , mutate } = useGoalsList(filter);
+  const { goalsList, isLoading, isError, mutate } = useGoalsList(filter);
 
   const redirectTo = (value) => {
     router.push(value);
@@ -54,9 +55,7 @@ function OptimizedPublicGoalList(props) {
             ) : (
               <>
                 <GoalFilter filter={filter} setFilter={setFilter} />
-                <Button block color='primary' size='middle'>
-                  Xem người ngẫu nhiên
-                </Button>
+                <RandomUserViewer />
                 <List>
                   {goalsList?.data?.map(user => (
                     <List.Item

@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { GOAL } from 'constants/queryKeys';
 import { mutate } from 'swr';
-import { addGoal, getGoalsList, getGoalDetails, updateGoal, deleteGoal } from 'api/goalService';
+import { addGoal, getGoalsList, getGoalDetails, updateGoal, deleteGoal, randomGoal } from 'api/goalService';
 
 export const useGoalsList = (filter) => {
   const fetcher = () => getGoalsList(filter);
@@ -39,6 +39,23 @@ export const useAddGoal = () => {
     }
   };
   return addNewGoal;
+};
+
+export const useRandomGoal = () => {
+  const randomGoalFuntion = async (newGoalData) => {
+    try {
+      const res = await randomGoal(newGoalData);
+      return {
+        isSuccess: true,
+        data: res
+      }
+    } catch (error) {
+      return {
+        isSuccess: false
+      };
+    }
+  };
+  return randomGoalFuntion;
 };
 
 export const useUpdateGoal = () => {
