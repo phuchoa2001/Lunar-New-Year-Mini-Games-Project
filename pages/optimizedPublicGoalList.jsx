@@ -14,11 +14,12 @@ import ProtectedComponent from '@/components/auth/ProtectedComponent';
 import RandomUserViewer from "@/components/RandomUserViewer"
 import addKeyLocalStorage from 'utils/localStorage';
 import { getGoalsList } from 'api/goalService';
+import HeaderSeo from '@/components/HeaderSeo';
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
-  const [goals , setGoals] = useState(props.goals);
+  const [goals, setGoals] = useState(props.goals);
   const isLoading = false;
   const [filter, setFilter] = useState({
     search: null,
@@ -49,10 +50,11 @@ function OptimizedPublicGoalList(props) {
     });
   };
 
-  const goalsFilter = getDataByFilter(goals.data , filter);
+  const goalsFilter = getDataByFilter(goals.data, filter);
 
   return (
     <div>
+      <HeaderSeo title='Mục tiêu công động tối yêu' />
       <Tabs onChange={handleChange} activeKey="optimizedList">
         <Tabs.Tab title='Danh sách mới' key='newList'>
           <LoadingComponent />

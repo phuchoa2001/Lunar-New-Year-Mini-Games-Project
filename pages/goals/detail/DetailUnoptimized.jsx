@@ -8,6 +8,7 @@ import { Toast } from 'antd-mobile';
 import { HeartFill } from 'antd-mobile-icons';
 import classNames from 'classnames';
 import { useGoalDetails, useLikeGoal } from 'hooks/swr/useGoal';
+import HeaderSeo from '@/components/HeaderSeo';
 
 const DetailUnoptimized = ({ idGoal }) => {
   const likeGoal = useLikeGoal();
@@ -29,6 +30,11 @@ const DetailUnoptimized = ({ idGoal }) => {
 
   return (
     <NavBarBack title="Xem mục tiêu">
+      <HeaderSeo
+        title='Chia Sẻ Mục Tiêu'
+        desc='Khám phá và chia sẻ mục tiêu của bạn với cộng đồng'
+        image='/public/image/ShareGoals.jpg'
+      />
       <div className={styles.container}>
         <div className={styles.card}>
           <div className={styles.body}>

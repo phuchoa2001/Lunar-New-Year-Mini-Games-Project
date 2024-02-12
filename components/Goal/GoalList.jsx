@@ -19,9 +19,12 @@ function GoalList(props) {
 		page: 1,
 		filter: {
 			status: 2,
-			idUser: props.idUser
+			idUser: props.user.idUser
 		}
 	})
+
+	console.log("filter" , filter);
+
 	const { goalsList, isLoading, isError, mutate } = useGoalsList(filter);
 
 	const handlePageClick = (event) => {

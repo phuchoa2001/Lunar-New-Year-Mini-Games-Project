@@ -10,6 +10,7 @@ import generateRandomId from 'utils/generateRandomId';
 import { useSWRConfig } from "swr"
 import { STATS } from 'constants/queryKeys';
 import { useStatsContext } from 'context/statsContext';
+import HeaderSeo from '@/components/HeaderSeo';
 
 export default function SetIDGame() {
   const { login } = useAuth();
@@ -55,6 +56,7 @@ export default function SetIDGame() {
 
   return (
     <UnauthenticatedContent to="/editIDGame">
+      <HeaderSeo title='Thêm IdGame' />
       <div style={{ padding: '20px' }} className={Styles.setIDGame}>
         <div style={{ background: "#fff" }} >
           <NavBar onBack={() => router.push('/')}>Đặt ID Game</NavBar>

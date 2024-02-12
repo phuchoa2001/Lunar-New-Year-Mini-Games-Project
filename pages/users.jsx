@@ -16,6 +16,7 @@ import Styles from '@/styles/User.module.scss'
 import { FacebookOutlined } from '@ant-design/icons'
 import ProtectedComponent from '@/components/auth/ProtectedComponent'
 import useAuth from 'hooks/useAuth'
+import HeaderSeo from '@/components/HeaderSeo'
 
 export default () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ export default () => {
 
   return (
     <ProtectedComponent>
+      <HeaderSeo title="Tài khoản" />
       <div className={Styles.user}>
         <List header='Tài khoản'>
           <List.Item prefix={<UserOutline />}>

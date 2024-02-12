@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import addKeyLocalStorage from 'utils/localStorage';
 import LoadingComponent from '@/components/Loading';
+import HeaderSeo from '@/components/HeaderSeo';
 
 export default function SetIDGame() {
   const { login, user, isLoading } = useAuth();
@@ -40,6 +41,7 @@ export default function SetIDGame() {
 
   return (
     <ProtectedComponent>
+      <HeaderSeo title='Sửa IdGame' />
       <div style={{ padding: '20px' }} className={Styles.setIDGame}>
         <div style={{ background: "#fff" }} >
           <NavBar onBack={() => router.back()}>Sửa ID Game</NavBar>
