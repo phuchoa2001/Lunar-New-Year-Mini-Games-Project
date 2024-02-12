@@ -4,7 +4,7 @@ import Head from 'next/head'
 function HeaderSeo({
   title = "Trang chủ",
   desc = "Cùng nhau vun đắp ước mơ tại 'Cây Mục Tiêu' của cộng đồng Avatar! Đặt mục tiêu, chia sẻ với cộng đồng và nỗ lực không ngừng để biến chúng thành hiện thực. Mỗi bước tiến là một chiến thắng, mỗi mục tiêu đều quý giá. Hãy cam kết với chính mình và khám phá sức mạnh của sự đoàn kết. Ghi lại mục tiêu của bạn ngay hôm nay và cùng chúng tôi xây dựng một năm tràn đầy thành công!",
-  image = "/public/image/BannerSeo.jpg" 
+  image = "/image/BannerSeo.jpg" 
 }) {
   return (
     <Head>
