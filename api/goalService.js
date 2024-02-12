@@ -4,9 +4,9 @@ import axiosClient from "./axiosClient";
 export const getGoalsList = async (filter) => {
   try {
     const response = await axiosClient.get('/goals', {
-      params : {
+      params: {
         ...filter,
-        filter : JSON.stringify(filter.filter)
+        filter: JSON.stringify(filter.filter)
       }
     });
     return response;
@@ -51,13 +51,11 @@ export const updateGoal = async (goalId, updatedGoalData) => {
 // Xóa mục tiêu
 export const deleteGoal = async (goalId) => {
   try {
-    const response = await axiosClient.delete(`/goals` , {
-      data : {
-        ids : [goalId]
+    const response = await axiosClient.delete(`/goals`, {
+      data: {
+        ids: [goalId]
       }
     });
-    console.log("response" , response);
-
     return response;  // Hoặc trả về giá trị cụ thể nếu API không trả về dữ liệu
   } catch (error) {
     console.error(`Failed to delete goal ${goalId}:`, error.response);
@@ -68,14 +66,24 @@ export const deleteGoal = async (goalId) => {
 // mục tiêu ngẫu nhiên
 export const randomGoal = async (userId) => {
   try {
-    const response = await axiosClient.get(`/goals/random` , {
-      params : {
-        userId 
+    const response = await axiosClient.get(`/goals/random`, {
+      params: {
+        userId
       }
     });
     return response;
   } catch (error) {
     console.error(`Failed to delete goal ${goalId}:`, error.response);
+    throw error;
+  }
+};
+
+// thích mục tiêu
+export const likeGoal = async (id) => {
+  try {
+    const response = await axiosClient.post(`/goals/${id}/like`);
+    return response;
+  } catch (error) {
     throw error;
   }
 };
