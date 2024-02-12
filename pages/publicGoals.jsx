@@ -5,6 +5,7 @@ import { Tabs } from 'antd-mobile';
 import { AddSquareOutline } from 'antd-mobile-icons';
 import { useRouter } from 'next/router';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
+import HeaderSeo from '@/components/HeaderSeo';
 
 function GoalPublicPage(props) {
 	const router = useRouter();
@@ -20,6 +21,7 @@ function GoalPublicPage(props) {
 
 	return (
 		<div>
+			<HeaderSeo title='Mục tiêu công động' />
 			<Tabs onChange={handleChange}>
 				<Tabs.Tab title='Danh sách mới' key='newList'>
 					<GoalPublic />

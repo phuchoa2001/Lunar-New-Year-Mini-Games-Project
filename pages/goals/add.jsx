@@ -40,7 +40,7 @@ export default () => {
 			Toast.show({
 				content: 'Thêm mục tiêu thành công',
 			})
-			router.push("/publicGoals")
+			router.push("/personalGoalList")
 		} else {
 			Toast.show({
 				content: 'Thêm mục tiêu thất bại',

@@ -7,6 +7,7 @@ import { Tabs } from 'antd-mobile';
 import { AddSquareOutline } from 'antd-mobile-icons';
 import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
+import HeaderSeo from '@/components/HeaderSeo';
 
 function GoalList(props) {
 	const router = useRouter();
@@ -24,6 +25,7 @@ function GoalList(props) {
 
 	return (
 		<ProtectedComponent>
+			<HeaderSeo title='Danh sách mục tiêu của bạn' />
 			<NavBarBack title="Danh sách mục tiêu của bạn">
 				<div>
 					<Tabs onChange={handleChange}>

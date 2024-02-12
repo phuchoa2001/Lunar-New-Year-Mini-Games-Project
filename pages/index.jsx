@@ -10,18 +10,20 @@ import classNames from 'classnames';
 import FloatButton from '@/components/FloatButton';
 import { AddSquareOutline } from 'antd-mobile-icons';
 import { useRouter } from 'next/router'
+import HeaderSeo from '@/components/HeaderSeo';
 
 const { Title } = Typography;
 
 export default function Home() {
 	const router = useRouter();
 
-  const redirectTo = (value) => {
-    router.push(value);
+	const redirectTo = (value) => {
+		router.push(value);
 	}
 
 	return (
 		<div className={styles.container}>
+			<HeaderSeo />
 			<div className={styles.banner}>
 				<div style={{ width: 300, maxWidth: "100%" }}>
 					<ImageWithSkeleton

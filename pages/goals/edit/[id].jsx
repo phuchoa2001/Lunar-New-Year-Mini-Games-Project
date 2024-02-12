@@ -18,6 +18,7 @@ import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { requiredFieldRule } from 'utils/validationRules';
+import HeaderSeo from '@/components/HeaderSeo';
 
 export default () => {
   const router = useRouter();
@@ -71,6 +72,7 @@ export default () => {
 
   return (
     <ProtectedComponent>
+      <HeaderSeo title="Sửa mục tiêu" />
       <NavBarBack title="Sửa mục tiêu">
         <div className={Styles.add}>
           <Form

@@ -16,6 +16,7 @@ import GoalItemUser from '@/components/Goal/GoalItemUser';
 import RandomUserViewer from "@/components/RandomUserViewer"
 import { getGoalsList } from 'api/goalService';
 import useAuth from 'hooks/useAuth';
+import HeaderSeo from '@/components/HeaderSeo';
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
@@ -67,6 +68,7 @@ function OptimizedPublicGoalList(props) {
 
   return (
     <ProtectedComponent>
+      <HeaderSeo title='Danh sách mục tiêu của bạn đã được tối yêu' />
       <NavBarBack title="Danh sách mục tiêu của bạn">
         <Tabs onChange={handleChange} activeKey="optimizedPersonalGoalList">
           <Tabs.Tab title='Danh sách mới' key='personalGoalList'>
