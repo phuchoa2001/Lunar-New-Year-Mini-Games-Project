@@ -21,7 +21,7 @@ function GoalPublicPage(props) {
 
 	return (
 		<div>
-			<HeaderSeo title='Mục tiêu công đồng' />
+			<HeaderSeo title='Mục tiêu cộng đồng' />
 			<Tabs onChange={handleChange}>
 				<Tabs.Tab title='Danh sách mới' key='newList'>
 					<GoalPublic />
