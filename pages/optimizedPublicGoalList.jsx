@@ -54,7 +54,7 @@ function OptimizedPublicGoalList(props) {
 
   return (
     <div>
-      <HeaderSeo title='Mục tiêu công động tối yêu' />
+      <HeaderSeo title='Mục tiêu công đồng tối yêu' />
       <Tabs onChange={handleChange} activeKey="optimizedList">
         <Tabs.Tab title='Danh sách mới' key='newList'>
           <LoadingComponent />
