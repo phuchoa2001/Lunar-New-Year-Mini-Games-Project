@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'antd-mobile';
 import PropTypes from 'prop-types';
 import Styles from '@/styles/components/floatButton.module.scss';
 import classNames from 'classnames';

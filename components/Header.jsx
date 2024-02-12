@@ -25,9 +25,9 @@ function Header(props) {
         )}
         {!isLoading && (
           <>
-            <Typography.Text className='text-white'>{dataStatsContext?.result?.views} lượt truy cập </Typography.Text>
-            <Typography.Text className='text-white px-2'>-</Typography.Text>
-            <Typography.Text className='text-white'> {dataStatsContext.count} người dùng</Typography.Text>
+            <Typography.Text className='text-white' style={{ color : "#fff" }}>{dataStatsContext?.result?.views} lượt truy cập </Typography.Text>
+            <Typography.Text className='text-white px-2' style={{ color : "#fff" }}>-</Typography.Text>
+            <Typography.Text className='text-white' style={{ color : "#fff" }}> {dataStatsContext.count} người dùng</Typography.Text>
           </>
         )}
       </Space>

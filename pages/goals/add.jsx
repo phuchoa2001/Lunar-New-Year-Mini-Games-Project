@@ -69,7 +69,7 @@ export default () => {
 						form={form}
 						onFinish={onFinish}
 						footer={
-							<Button block type='submit' color='primary' size='large'>
+							<Button block type='submit' color='primary' size='large' className='ant-button'>
 								Thêm mới
 							</Button>
 						}

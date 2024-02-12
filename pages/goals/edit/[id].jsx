@@ -81,7 +81,7 @@ export default () => {
             initialValues={data}
             form={form}
             footer={
-              <Button block type='submit' color='primary' size='large'>
+              <Button block type='submit' color='primary' size='large' className='ant-button'>
                 Sửa
               </Button>
             }

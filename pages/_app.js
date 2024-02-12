@@ -1,5 +1,5 @@
-import '../styles/tailwind.css';
 import 'antd/dist/antd.css';
+import '../styles/tailwind.css';
 import '@/styles/globals.scss'
 import '@/styles/all.scss'
 import RootLayout from '../components/Layout'

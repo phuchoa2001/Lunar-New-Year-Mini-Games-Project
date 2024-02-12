@@ -36,7 +36,11 @@ const GoalDetail = ({ goal, id }) => {
 
 	return (
 		<NavBarBack title="Xem mục tiêu" >
-			<HeaderSeo title={goal.idGame} desc={`Mục tiêu 2024 : ${goal.target} `} image='/image/ShareGoals.jpg' />
+			<HeaderSeo
+				title={goal.idGame}
+				desc={`Mục tiêu 2024 : ${goal.target} `}
+				image='/image/ShareGoals.jpg'
+			/>
 			<div className={styles.container}>
 				<div className={styles.card}>
 					<div className={styles.body}>

@@ -1,9 +1,6 @@
 @echo off
 :loop
 
-echo Waiting for 15 minutes before pulling and building again...
-timeout /t 900
-
 echo Pulling latest code from the master branch...
 git pull origin main -f
 
