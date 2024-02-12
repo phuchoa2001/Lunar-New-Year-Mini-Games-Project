@@ -1,6 +1,6 @@
+import '../styles/tailwind.css';
 import 'antd/dist/antd.css';
 import '@/styles/globals.scss'
-import '../styles/tailwind.css';
 import '@/styles/all.scss'
 import RootLayout from '../components/Layout'
 import Head from 'next/head'

@@ -12,19 +12,20 @@ import { useState } from 'react';
 import scrollToTop from 'utils/scrollToTop';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
 import RandomUserViewer from "@/components/RandomUserViewer"
+import addKeyLocalStorage from 'utils/localStorage';
+import { getGoalsList } from 'api/goalService';
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(0);
+  const [goals , setGoals] = useState(props.goals);
+  const isLoading = false;
   const [filter, setFilter] = useState({
     search: null,
-    limit: LIMIT,
-    page: 1,
     filter: {
-      status: 1
+      inGame: null
     }
   })
-  const { goalsList, isLoading, isError } = useGoalsList(filter);
 
   const redirectTo = (value) => {
     router.push(value);
@@ -40,6 +41,16 @@ function OptimizedPublicGoalList(props) {
     setCurrentPage(event.selected);
   };
 
+  const getDataByFilter = (data, { search, filter: { inGame } }) => {
+    return data.filter((item) => {
+      const searchMatch = search ? item.idGame.includes(search) || item.target.includes(search) : true;
+      const inGameMatch = !!inGame ? item.inGame === inGame : true;
+      return searchMatch && inGameMatch;
+    });
+  };
+
+  const goalsFilter = getDataByFilter(goals.data , filter);
+
   return (
     <div>
       <Tabs onChange={handleChange} activeKey="optimizedList">
@@ -54,7 +65,7 @@ function OptimizedPublicGoalList(props) {
               <GoalFilter filter={filter} setFilter={setFilter} />
               <RandomUserViewer />
               <List>
-                {goalsList?.data?.map(user => (
+                {goalsFilter?.map(user => (
                   <List.Item
                     key={user.name}
                     prefix={
@@ -66,7 +77,7 @@ function OptimizedPublicGoalList(props) {
                   </List.Item>
                 ))}
               </List>
-              <Space className='w-full' justify='end'>
+              {/* <Space className='w-full' justify='end'>
                 <Pagination
                   defaultCurrent={filter.page}
                   total={goalsList.total}
@@ -80,7 +91,7 @@ function OptimizedPublicGoalList(props) {
                     scrollToTop();
                   }}
                 />
-              </Space>
+              </Space> */}
             </>
           )}
         </Tabs.Tab>
@@ -88,6 +99,22 @@ function OptimizedPublicGoalList(props) {
       <FloatButton icon={<AddSquareOutline fontSize={18} />} onClick={() => redirectTo("/goals/add")} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const goals = await getGoalsList({
+    limit: 1000,
+    page: 1,
+    filter: {
+      status: 1,
+    }
+  })
+
+  return {
+    props: {
+      goals,
+    },
+  }
 }
 
 export default OptimizedPublicGoalList;

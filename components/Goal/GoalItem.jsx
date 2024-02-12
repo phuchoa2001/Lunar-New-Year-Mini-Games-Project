@@ -8,11 +8,11 @@ function GoalItem(props) {
   const router = useRouter();
 
   const handleCLick = () => {
-    router.push(`/goals/detail/${props.target}?id=${props['_id']}`);
+		router.push(`/goals/detail/${props['_id']}?title=${props.target}`);
   }
 
   return (
-    <div onClick={handleCLick}>
+    <div onClick={handleCLick} className='cursor-pointer'>
       <Space justify="between" className='w-full justify-between mb-2' align="center" >
         <p className='text-lg'>IdGame:{props.idGame}</p>
         <div className='text-xs '>{props.inGame}</div>

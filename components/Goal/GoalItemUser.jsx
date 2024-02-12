@@ -15,7 +15,7 @@ function GoalItemUser(props) {
 	const timeDiff = getHoursFromCreatedAt(props.createdAt);
 
 	const handleCLick = () => {
-		router.push(`/goals/detail/${props.target}?id=${props['_id']}`);
+		router.push(`/goals/detail/${props['_id']}?title=${props.target}`);
 	}
 
 	const handleEdit = async (event) => {
@@ -33,7 +33,9 @@ function GoalItemUser(props) {
 			Toast.show({
 				content: 'Xóa mục tiêu thành công',
 			})
-			props.mutate()
+			if (!props.isOptimized) {
+				props.mutate()
+			}
 		} else {
 			Toast.show({
 				content: 'Xóa mục tiêu thất bại',
@@ -42,7 +44,7 @@ function GoalItemUser(props) {
 	};
 
 	return (
-		<div onClick={handleCLick}>
+		<div onClick={handleCLick} className='cursor-pointer'>
 			<Space justify="between" className='w-full justify-between mb-2' align="center" >
 				<p className='text-lg'>IdGame:{props.idGame}</p>
 				<div className='text-xs '>{props.inGame}</div>

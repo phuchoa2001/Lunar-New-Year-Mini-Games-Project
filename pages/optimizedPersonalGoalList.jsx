@@ -8,25 +8,26 @@ import { AddSquareOutline, UserOutline } from 'antd-mobile-icons';
 import { LIMIT } from 'constants/common';
 import { useGoalsList } from 'hooks/swr/useGoal';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import scrollToTop from 'utils/scrollToTop';
 import NavBarBack from '@/components/NavBarBack';
 import ProtectedComponent from '@/components/auth/ProtectedComponent';
 import GoalItemUser from '@/components/Goal/GoalItemUser';
 import RandomUserViewer from "@/components/RandomUserViewer"
+import { getGoalsList } from 'api/goalService';
+import useAuth from 'hooks/useAuth';
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
+  const { user, isLoading } = useAuth();
   const [currentPage, setCurrentPage] = useState(0);
+  const [goals, setGoals] = useState(props.goals);
   const [filter, setFilter] = useState({
     search: null,
-    limit: LIMIT,
-    page: 1,
     filter: {
-      status: 1
+      inGame: null
     }
   })
-  const { goalsList, isLoading, isError, mutate } = useGoalsList(filter);
 
   const redirectTo = (value) => {
     router.push(value);
@@ -41,6 +42,28 @@ function OptimizedPublicGoalList(props) {
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
   };
+
+  const getDataByFilter = (data, { search, filter: { inGame , idUser } }) => {
+    return data.filter((item) => {
+      const searchMatch = search ? item.idGame.includes(search) || item.target.includes(search) : true;
+      const inGameMatch = !!inGame ? item.inGame === inGame : true;
+      const idUserMatch = !!idUser ? item.idUser === idUser : true;
+      return searchMatch && inGameMatch && idUserMatch;
+    });
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      setFilter(prev => ({
+        ...prev,
+        filter : {
+          ...prev.filter,
+          idUser: user.idUser
+        }
+      }))
+    }
+  }, [isLoading])
+  const goalsFilter = getDataByFilter(goals.data, filter);
 
   return (
     <ProtectedComponent>
@@ -57,7 +80,7 @@ function OptimizedPublicGoalList(props) {
                 <GoalFilter filter={filter} setFilter={setFilter} />
                 <RandomUserViewer />
                 <List>
-                  {goalsList?.data?.map(user => (
+                  {goalsFilter?.map(user => (
                     <List.Item
                       key={user.name}
                       prefix={
@@ -65,15 +88,15 @@ function OptimizedPublicGoalList(props) {
                       }
                       style={{ background: "#f4f2e7" }}
                     >
-                      <GoalItemUser  {...user} mutate={mutate} />
+                      <GoalItemUser  {...user} isOptimized={true} />
                     </List.Item>
                   ))}
                 </List>
-                <Space className='w-full' justify='end'>
+                {/* <Space className='w-full' justify='end'>
                   <Pagination
                     defaultCurrent={filter.page}
-                    total={goalsList.total}
-                    pageSize={goalsList.limit}
+                    total={goals.total}
+                    pageSize={goals.limit}
                     style={{ paddingBottom: 70 }}
                     onChange={(page) => {
                       setFilter(prev => ({
@@ -83,7 +106,7 @@ function OptimizedPublicGoalList(props) {
                       scrollToTop();
                     }}
                   />
-                </Space>
+                </Space> */}
               </>
             )}
           </Tabs.Tab>
@@ -92,6 +115,22 @@ function OptimizedPublicGoalList(props) {
       </NavBarBack>
     </ProtectedComponent>
   );
+}
+
+export async function getStaticProps() {
+  const goals = await getGoalsList({
+    limit: 1000,
+    page: 1,
+    filter: {
+      status: 1
+    }
+  })
+
+  return {
+    props: {
+      goals,
+    },
+  }
 }
 
 export default OptimizedPublicGoalList;
