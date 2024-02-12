@@ -13,7 +13,7 @@ function RandomUserViewer(props) {
   const handleRandom = async () => {
     const res = await randomGoal(user.idUser)
     if (res.isSuccess) {
-      router.push(`/goals/detail/${res.data.target}?id=${res.data['_id']}`)
+      router.push(`/goals/detail/${res.data['_id']}?title=${res.data.target}`)
     } else {
       Toast.show({
         content: 'Không có dữ liệu',
