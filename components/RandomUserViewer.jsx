@@ -22,7 +22,7 @@ function RandomUserViewer(props) {
   }
 
   return (
-    <Button block color='primary' size='middle' onClick={handleRandom}>
+    <Button block color='primary' size='middle' onClick={handleRandom} className='ant-button'>
       {isLoading ? <LoadingComponent /> : "Xem người ngẫu nhiên"}
     </Button>
   );

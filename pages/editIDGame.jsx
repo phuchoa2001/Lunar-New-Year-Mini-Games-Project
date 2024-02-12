@@ -56,7 +56,7 @@ export default function SetIDGame() {
               onChange={value => setIdGame(value)}
             />
           )}
-          <Button color="primary" block onClick={handleEditIDGame}>
+          <Button color="primary" block onClick={handleEditIDGame} className='ant-button'>
             Xác nhận
           </Button>
         </Space>

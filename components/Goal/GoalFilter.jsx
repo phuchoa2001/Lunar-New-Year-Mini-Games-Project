@@ -55,6 +55,7 @@ function GoalFilter({ filter, setFilter }) {
           }}
           style={{ height: '40px' }}
           size="large"
+          className='ant-button-fff'
         >
           <FilterOutline />
         </Button>
