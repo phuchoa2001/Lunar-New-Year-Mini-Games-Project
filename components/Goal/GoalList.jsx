@@ -18,12 +18,10 @@ function GoalList(props) {
 		limit: LIMIT,
 		page: 1,
 		filter: {
-			status: 2,
+			status: [2 , 3],
 			idUser: props.user.idUser
 		}
 	})
-
-	console.log("filter" , filter);
 
 	const { goalsList, isLoading, isError, mutate } = useGoalsList(filter);
 

@@ -108,7 +108,7 @@ export async function getStaticProps() {
     limit: 1000,
     page: 1,
     filter: {
-      status: 1,
+      status: [1 , 3],
     }
   })
 

@@ -21,6 +21,7 @@ import HeaderSeo from '@/components/HeaderSeo';
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
   const { user, isLoading } = useAuth();
+  const [isReady , setIsReady] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [goals, setGoals] = useState(props.goals);
   const [filter, setFilter] = useState({
@@ -44,7 +45,7 @@ function OptimizedPublicGoalList(props) {
     setCurrentPage(event.selected);
   };
 
-  const getDataByFilter = (data, { search, filter: { inGame , idUser } }) => {
+  const getDataByFilter = (data, { search, filter: { inGame, idUser } }) => {
     return data.filter((item) => {
       const searchMatch = search ? item.idGame.includes(search) || item.target.includes(search) : true;
       const inGameMatch = !!inGame ? item.inGame === inGame : true;
@@ -57,11 +58,12 @@ function OptimizedPublicGoalList(props) {
     if (!isLoading) {
       setFilter(prev => ({
         ...prev,
-        filter : {
+        filter: {
           ...prev.filter,
           idUser: user.idUser
         }
       }))
+      setIsReady(true);
     }
   }, [isLoading])
   const goalsFilter = getDataByFilter(goals.data, filter);
@@ -75,7 +77,7 @@ function OptimizedPublicGoalList(props) {
             <LoadingComponent />
           </Tabs.Tab>
           <Tabs.Tab title='Danh sách đã tối yêu' key='optimizedPersonalGoalList'>
-            {isLoading ? (
+            {(isLoading || !isReady)  ? (
               <LoadingComponent />
             ) : (
               <>
@@ -124,7 +126,7 @@ export async function getStaticProps() {
     limit: 1000,
     page: 1,
     filter: {
-      status: 1
+      status: [1, 3]
     }
   })
 
