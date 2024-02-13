@@ -10,7 +10,8 @@ import {
   TeamOutline,
   InformationCircleOutline,
   DeleteOutline,
-  EditFill
+  EditFill,
+  AppstoreOutline
 } from 'antd-mobile-icons'
 import Styles from '@/styles/User.module.scss'
 import { FacebookOutlined } from '@ant-design/icons'
@@ -52,6 +53,11 @@ export default () => {
             window.open('https://web.facebook.com/caymuctieu/', '_blank');
           }}>
             Liên hệ Facebook
+          </List.Item>
+          <List.Item prefix={<AppstoreOutline />} onClick={() => {
+            window.open('https://www.facebook.com/caymuctieu/posts/pfbid0LEtPa14yA1WA2w1896czC58c1NczLU3tkBoV1uGsyiHGacMjvgedsf7KwVrh4pQkl', '_blank');
+          }}>
+            Báo lỗi ứng dụng
           </List.Item>
           <List.Item prefix={<InformationCircleOutline />} onClick={() => {
             Toast.show({

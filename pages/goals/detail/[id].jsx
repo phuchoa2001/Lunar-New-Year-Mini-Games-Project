@@ -73,7 +73,7 @@ const GoalDetail = ({ goal, id }) => {
 					</div>
 					<RandomUserViewer />
 				</div>
-				<FloatButton icon={<HeartFill color='red' />} onClick={handleLike} />
+				<FloatButton icon={isLoading ? <LoadingComponent /> : <HeartFill color='red' />} onClick={handleLike} />
 			</div>
 		</NavBarBack>
 	);
