@@ -37,7 +37,7 @@ const GoalDetail = ({ goal, id }) => {
 	return (
 		<NavBarBack title="Xem mục tiêu" >
 			<HeaderSeo
-				title={goal.idGame}
+				title={`Mục tiêu 2024 của ${goal.idGame}`}
 				desc={`Mục tiêu 2024 : ${goal.target} `}
 				image='/image/ShareGoals.jpg'
 			/>
