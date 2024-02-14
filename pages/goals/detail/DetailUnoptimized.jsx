@@ -57,7 +57,7 @@ const DetailUnoptimized = ({ idGoal }) => {
             <div className={styles.detailItem}>
               <div className={styles.title}>Trạng thái</div>
               <div className={styles.content}>
-                <GoalItemStatus status={goalDetails?.status} />
+                {isLoading ? <LoadingComponent /> : <GoalItemStatus status={goalDetails.status} />}
               </div>
             </div>
             <div className={styles.detailItem}>

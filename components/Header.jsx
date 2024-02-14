@@ -13,9 +13,17 @@ function Header(props) {
 
   useEffect(() => {
     if (!isLoading) {
-      setData(data)
+      setData({
+        ...data,
+        isLoading
+      })
+    } else {
+      setData(prev => ({
+        ...prev,
+        isLoading: isLoading
+      }))
     }
-  }, [isLoading])
+  }, [isLoading, data])
 
   return (
     <div>
@@ -25,9 +33,9 @@ function Header(props) {
         )}
         {!isLoading && (
           <>
-            <Typography.Text className='text-white' style={{ color : "#fff" }}>{dataStatsContext?.result?.views} lượt truy cập </Typography.Text>
-            <Typography.Text className='text-white px-2' style={{ color : "#fff" }}>-</Typography.Text>
-            <Typography.Text className='text-white' style={{ color : "#fff" }}> {dataStatsContext.count} người dùng</Typography.Text>
+            <Typography.Text className='text-white' style={{ color: "#fff" }}>{dataStatsContext?.result?.views} lượt truy cập </Typography.Text>
+            <Typography.Text className='text-white px-2' style={{ color: "#fff" }}>-</Typography.Text>
+            <Typography.Text className='text-white' style={{ color: "#fff" }}> {dataStatsContext.count} người dùng</Typography.Text>
           </>
         )}
       </Space>

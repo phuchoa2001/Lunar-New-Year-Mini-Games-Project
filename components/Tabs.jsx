@@ -21,7 +21,7 @@ function Tabs(props) {
 		},
 		{
 			key: '/publicGoals',
-			title: 'Mục tiêu công đồng',
+			title: 'Mục tiêu cộng đồng',
 			icon: <UnorderedListOutline />,
 		},
 		{

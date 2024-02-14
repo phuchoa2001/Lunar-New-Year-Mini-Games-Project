@@ -19,6 +19,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { requiredFieldRule } from 'utils/validationRules';
 import HeaderSeo from '@/components/HeaderSeo';
+import { useStatsContext } from 'context/statsContext';
+import { useSWRConfig } from 'swr';
+import { STATS } from 'constants/queryKeys';
 
 export default () => {
   const router = useRouter();
@@ -26,9 +29,13 @@ export default () => {
   const [form] = Form.useForm();
 
   const { user, isLoading: isLoadingAuth } = useAuth();
+  const { data: dataStats } = useStatsContext();
   const updateGoal = useUpdateGoal();
   const { data, resetData } = useGoalContext();
-  const { goalDetails, isLoading } = useGoalDetails(id, !data.idGame);
+  const { mutate } = useSWRConfig()
+  // Không có data.idGame và không có trong dataStats.action
+  const isCallApi = !data.idGame || dataStats?.actions?.some((action) => action.id === id);
+  const { goalDetails, isLoading } = useGoalDetails(id, isCallApi);
 
   function getFirstElementOrString(input) {
     if (Array.isArray(input)) {
@@ -49,6 +56,7 @@ export default () => {
       Toast.show({
         content: 'Sửa mục tiêu thành công',
       })
+      mutate(STATS.STATS)
       resetData();
       router.back()
     } else {
