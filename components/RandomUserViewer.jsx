@@ -12,6 +12,10 @@ function RandomUserViewer(props) {
   const randomGoal = useRandomGoal();
 
   const handleRandom = async () => {
+    if(!user?.idUser) {
+      router.push(`/setIDGame`)
+      return;
+    }
     setIsLoadingApi(true)
     const res = await randomGoal(user.idUser)
     if (res.isSuccess) {
