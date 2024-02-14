@@ -1,6 +1,6 @@
 # :sparkles: Dự Án Next.js - Ứng Dụng Mini Giải Trí :sparkles:
 
-Dự án này được khởi tạo với `create-next-app` và phát triển như một ứng dụng web nhỏ, với mục tiêu chính là tạo ra một sản phẩm giải trí. Dự án được bắt đầu từ mùng 24 Tết và hoàn thành vào tối mùng 3, đánh dấu một hành trình ngắn ngủi nhưng đầy ý nghĩa trong việc mang lại niềm vui và sự giải trí cho người dùng.
+Dự án này được khởi tạo với `create-next-app` và phát triển như một ứng dụng web nhỏ, với mục tiêu chính là tạo ra một sản phẩm giải trí. Dự án được bắt đầu từ mùng 24 Tết và hoàn thành vào tối mùng 4, đánh dấu một hành trình ngắn ngủi nhưng đầy ý nghĩa trong việc mang lại niềm vui và sự giải trí cho người dùng.
 
 ## :trophy: Mục Tiêu Dự Án
 
