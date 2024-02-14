@@ -17,10 +17,12 @@ import RandomUserViewer from "@/components/RandomUserViewer"
 import { getGoalsList } from 'api/goalService';
 import useAuth from 'hooks/useAuth';
 import HeaderSeo from '@/components/HeaderSeo';
+import { useStatsContext } from 'context/statsContext';
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
   const { user, isLoading } = useAuth();
+	const { data } = useStatsContext();
   const [isReady , setIsReady] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [goals, setGoals] = useState(props.goals);
@@ -77,24 +79,29 @@ function OptimizedPublicGoalList(props) {
             <LoadingComponent />
           </Tabs.Tab>
           <Tabs.Tab title='Danh sách đã tối yêu' key='optimizedPersonalGoalList'>
-            {(isLoading || !isReady)  ? (
+            {(isLoading || !isReady || data.isLoading)  ? (
               <LoadingComponent />
             ) : (
               <>
                 <GoalFilter filter={filter} setFilter={setFilter} />
                 <RandomUserViewer />
                 <List>
-                  {goalsFilter?.map(user => (
-                    <List.Item
-                      key={user.name}
-                      prefix={
-                        <UserOutline fontSize={40} />
-                      }
-                      style={{ background: "#f4f2e7" }}
-                    >
-                      <GoalItemUser  {...user} isOptimized={true} />
-                    </List.Item>
-                  ))}
+                  {goalsFilter?.map(user => {
+                    if(data.actions?.some((action) => action.id === user["_id"])) {
+                      return <></>
+                    }
+                    return (
+                      <List.Item
+                        key={user.name}
+                        prefix={
+                          <UserOutline fontSize={40} />
+                        }
+                        style={{ background: "#f4f2e7" }}
+                      >
+                        <GoalItemUser  {...user} isOptimized={true} />
+                      </List.Item>
+                    )
+                  })}
                 </List>
                 {/* <Space className='w-full' justify='end'>
                   <Pagination

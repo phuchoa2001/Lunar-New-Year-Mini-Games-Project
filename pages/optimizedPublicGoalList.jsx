@@ -15,9 +15,11 @@ import RandomUserViewer from "@/components/RandomUserViewer"
 import addKeyLocalStorage from 'utils/localStorage';
 import { getGoalsList } from 'api/goalService';
 import HeaderSeo from '@/components/HeaderSeo';
+import { useStatsContext } from 'context/statsContext';
 
 function OptimizedPublicGoalList(props) {
   const router = useRouter();
+  const { data } = useStatsContext();
   const [currentPage, setCurrentPage] = useState(0);
   const [goals, setGoals] = useState(props.goals);
   const isLoading = false;
@@ -60,24 +62,29 @@ function OptimizedPublicGoalList(props) {
           <LoadingComponent />
         </Tabs.Tab>
         <Tabs.Tab title='Danh sách đã tối yêu' key='optimizedList'>
-          {isLoading ? (
+          {(isLoading || data.isLoading) ? (
             <LoadingComponent />
           ) : (
             <>
               <GoalFilter filter={filter} setFilter={setFilter} />
               <RandomUserViewer />
               <List>
-                {goalsFilter?.map(user => (
-                  <List.Item
-                    key={user.name}
-                    prefix={
-                      <UserOutline fontSize={40} />
-                    }
-                    style={{ background: "#f4f2e7" }}
-                  >
-                    <GoalItem  {...user} />
-                  </List.Item>
-                ))}
+                {goalsFilter?.map(user => {
+                  if (data.actions?.some((action) => action.id === user["_id"])) {
+                    return <></>
+                  }
+                  return (
+                    <List.Item
+                      key={user.name}
+                      prefix={
+                        <UserOutline fontSize={40} />
+                      }
+                      style={{ background: "#f4f2e7" }}
+                    >
+                      <GoalItem  {...user} />
+                    </List.Item>
+                  )
+                })}
               </List>
               {/* <Space className='w-full' justify='end'>
                 <Pagination
@@ -108,7 +115,7 @@ export async function getStaticProps() {
     limit: 1000,
     page: 1,
     filter: {
-      status: [1 , 3],
+      status: [1, 3],
     }
   })
 

@@ -6,10 +6,15 @@ import GoalItemStatus from './GoalItemStatus';
 import { useRouter } from 'next/router';
 import { useGoalContext } from 'context/goalContext';
 import { getHoursFromCreatedAt } from 'utils/dateUtils';
+import useAuth from 'hooks/useAuth';
 import { useDeleteGoal } from 'hooks/swr/useGoal';
+import { useSWRConfig } from "swr"
+import { STATS } from 'constants/queryKeys';
 
 function GoalItemUser(props) {
 	const router = useRouter();
+	const { user } = useAuth();
+	const { mutate } = useSWRConfig()
 	const { data, setData } = useGoalContext();
 	const deleteGoal = useDeleteGoal();
 	const timeDiff = getHoursFromCreatedAt(props.createdAt);
@@ -28,11 +33,16 @@ function GoalItemUser(props) {
 
 	const handleDelete = async (event) => {
 		event.stopPropagation();
-		const res = await deleteGoal(props["_id"])
+		const res = await deleteGoal({
+			id: props["_id"],
+			confirmUser: user.confirmUser,
+			idUser : user.idUser
+		})
 		if (res.isSuccess) {
 			Toast.show({
 				content: 'Xóa mục tiêu thành công',
 			})
+			mutate(STATS.STATS)
 			if (!props.isOptimized) {
 				props.mutate()
 			}

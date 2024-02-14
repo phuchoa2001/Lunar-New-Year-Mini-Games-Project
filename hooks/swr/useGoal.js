@@ -96,9 +96,9 @@ export const useUpdateGoal = () => {
 };
 
 export const useDeleteGoal = () => {
-  const deleteGoalFunction = async (goalId) => {
+  const deleteGoalFunction = async (user) => {
     try {
-      await deleteGoal(goalId);
+      await deleteGoal(user);
       return {
         isSuccess: true
       };

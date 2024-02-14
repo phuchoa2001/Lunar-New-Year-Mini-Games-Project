@@ -12,14 +12,20 @@ import { useGoalDetails, useLikeGoal } from 'hooks/swr/useGoal';
 import { useRouter } from 'next/router';
 import DetailUnoptimized from './DetailUnoptimized';
 import HeaderSeo from '@/components/HeaderSeo';
+import { useStatsContext } from 'context/statsContext';
 
 const GoalDetail = ({ goal, id }) => {
 	const router = useRouter();
+	const { data } = useStatsContext();
 	const idGoal = goal ? goal["_id"] : null;
 	const likeGoal = useLikeGoal();
-	const { goalDetails, isLoading, mutate } = useGoalDetails(idGoal, !router.isFallback);
+	const { goalDetails, isLoading, mutate } = useGoalDetails(idGoal, (!router.isFallback));
 
-	if (router.isFallback) {
+	if(data.isLoading) {
+		return <LoadingComponent />
+	}
+
+	if (router.isFallback || data?.actions?.some((action) => action.id === id)) {
 		return <DetailUnoptimized idGoal={idGoal} />;
 	}
 
@@ -63,7 +69,7 @@ const GoalDetail = ({ goal, id }) => {
 						<div className={styles.detailItem}>
 							<div className={styles.title}>Trạng thái</div>
 							<div className={styles.content}>
-								<GoalItemStatus status={goal.status} />
+								{isLoading ? <LoadingComponent /> : <GoalItemStatus status={goalDetails.status} />}
 							</div>
 						</div>
 						<div className={styles.detailItem}>

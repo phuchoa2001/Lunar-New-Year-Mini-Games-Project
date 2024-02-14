@@ -49,11 +49,13 @@ export const updateGoal = async (goalId, updatedGoalData) => {
 };
 
 // Xóa mục tiêu
-export const deleteGoal = async (goalId) => {
+export const deleteGoal = async (user) => {
   try {
     const response = await axiosClient.delete(`/goals`, {
       data: {
-        ids: [goalId]
+        id: user.id,
+        confirmUser: user.confirmUser,
+        idUser : user.idUser
       }
     });
     return response;  // Hoặc trả về giá trị cụ thể nếu API không trả về dữ liệu
