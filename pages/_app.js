@@ -8,6 +8,7 @@ import useSWR, { SWRConfig } from 'swr'
 import { StatsProvider } from 'context/statsContext';
 import { GoalProvider } from 'context/goalContext';
 
+
 function MyApp({ Component, pageProps }) {
 	return (
 		<GoalProvider>

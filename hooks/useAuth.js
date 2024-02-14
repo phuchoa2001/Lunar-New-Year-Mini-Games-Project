@@ -22,6 +22,7 @@ const useAuth = () => {
 
   const logout = () => {
     localStorage.removeItem(addKeyLocalStorage('isAuth'));
+    localStorage.removeItem(addKeyLocalStorage('user'));
     setIsAuthenticated(false);
   };
   return { isAuthenticated, login, logout, user , isLoading };
