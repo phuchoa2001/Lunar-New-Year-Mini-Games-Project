@@ -17,7 +17,7 @@ function GoalPublic(props) {
 		limit: LIMIT,
 		page: 1,
 		filter: {
-			status: [2, 3]
+			status: [1 , 2, 3]
 		}
 	})
 	const { goalsList, isLoading, isError } = useGoalsList(filter);
