@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "startVps": "next start -p 80"
+    "startVps": "next start -p 443"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
