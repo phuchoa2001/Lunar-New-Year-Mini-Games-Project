@@ -7,6 +7,9 @@ git pull origin main -f
 echo Making a PATCH request to the API to update goal status...
 call axios.bat
 
+echo Making a GET request to the API to check goal actions...
+call axiosCheckActions.bat
+
 echo Building the project...
 call build.bat || echo Build failed, continuing with the script...
 
@@ -15,5 +18,7 @@ call pm2reload.bat
 
 echo Making a PATCH request to the API to update goal status...
 call doneBuild.bat
+
+del api_response.txt
 
 goto loop

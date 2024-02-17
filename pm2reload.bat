@@ -15,5 +15,3 @@ if "%API_CONDITION%"=="true" (
 ) else (
     echo Condition not met, skipping build and reload.
 )
-
-del api_response.txt
