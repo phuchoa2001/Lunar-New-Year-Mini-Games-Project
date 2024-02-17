@@ -5,7 +5,7 @@ module.exports = {
       exec_mode: 'cluster',
       instances: 1, // Chỉ chạy một instance
       script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 80'
+      args: 'start -p 443'
     }
   ]
 }
